@@ -10,7 +10,7 @@ from ckanext.s3filestore.click_commands import upload_resources, upload_assets
 class S3FileStorePlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IConfigurable)
-    plugins.implements(plugins.IUploader)
+    plugins.implements(plugins.IUploader, inherit=True)
     plugins.implements(plugins.IBlueprint)
     plugins.implements(plugins.IClick)
 
