@@ -60,7 +60,7 @@ def resource_download(package_type, id, resource_id, filename=None):
             filename = os.path.basename(rsc['url'])
 
         log.info(">>>>> >>>>> >>>>> >>>>> >>>>>")
-        log.info('resource', rsc, filename)
+        log.info(f'rsc > {rsc}, filename > {filename}')
         log.info(">>>>> >>>>> >>>>> >>>>> >>>>>")            
 
         key_path = upload.get_path(rsc['id'], filename)

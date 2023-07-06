@@ -354,6 +354,10 @@ class S3ResourceUploader(BaseS3Uploader):
             resource['url_type'] = ''
 
     def get_path(self, id, filename):
+
+        log.info(">>>>> >>>>> >>>>> >>>>> >>>>>")
+        log.info(f'rsc > {id}, filename > {filename}')
+        log.info(">>>>> >>>>> >>>>> >>>>> >>>>>")       
         '''Return the key used for this resource in S3.
 
         Keys are in the form:
