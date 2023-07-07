@@ -353,11 +353,10 @@ class S3ResourceUploader(BaseS3Uploader):
             self.old_filename = old_resource.url
             resource['url_type'] = ''
 
-    def get_path(self, id, filename):
+    def get_path(self, id):
 
         log.info(">>>>> >>>>> >>>>> >>>>> >>>>>")
-        log.info(f'rsc > {id}, filename > {filename}')
-        log.info(">>>>> >>>>> >>>>> >>>>> >>>>>")       
+        log.info(f'rsc > {id}')
         '''Return the key used for this resource in S3.
 
         Keys are in the form:
@@ -367,7 +366,10 @@ class S3ResourceUploader(BaseS3Uploader):
         my_storage_path/resources/165900ba-3c60-43c5-9e9c-9f8acd0aa93f/data.csv
         '''
         directory = self.get_directory(id, self.storage_path)
-        filepath = os.path.join(directory, filename)
+        filepath = os.path.join(
+            directory, '{}_{}'.format(self.path_prefix, id[6:]))
+        log.info(">>>>> >>>>> >>>>> >>>>> >>>>>")       
+        log.info(f'filepath > {filepath}')
         return filepath
 
     def upload(self, id, max_size=10):

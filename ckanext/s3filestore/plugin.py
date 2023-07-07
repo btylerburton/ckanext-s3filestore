@@ -67,10 +67,7 @@ class S3FileStorePlugin(plugins.SingletonPlugin):
     # IBlueprint
 
     def get_blueprint(self):
-        return resource.get_blueprints()
-        blueprints = [resource.get_blueprints(), uploads.get_blueprints()]
-        log.info(f'blueprints >> {blueprints}')
-        return blueprints
+        return [resource.get_blueprints(), uploads.get_blueprints()]
 
     # IClick
 
