@@ -25,7 +25,12 @@ abort = base.abort
 redirect = toolkit.redirect_to
 
 
-s3_resource = Blueprint('s3_resource',__name__)
+s3_resource = Blueprint(
+    's3_resource',
+    __name__,
+    url_prefix=u'/dataset/<id>/resource',
+    url_defaults={u'package_type': u'dataset'}
+)
 
 
 def resource_download(package_type, id, resource_id, filename=None):
@@ -138,13 +143,9 @@ def filesystem_resource_download(package_type, id, resource_id, filename=None):
     return redirect(rsc[u'url'])
 
 
-s3_resource.add_url_rule('/<resource_id>/download',
+s3_resource.add_url_rule(u'/<resource_id>/download',
                          view_func=resource_download)
-s3_resource.add_url_rule('/<resource_id>/download/<filename>',
+s3_resource.add_url_rule(u'/<resource_id>/download/<filename>',
                          view_func=resource_download)
-s3_resource.add_url_rule('/<resource_id>/fs_download/<filename>',
+s3_resource.add_url_rule(u'/<resource_id>/fs_download/<filename>',
                          view_func=filesystem_resource_download)
-
-
-def get_blueprints():
-    return s3_resource
