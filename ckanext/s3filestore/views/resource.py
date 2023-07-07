@@ -147,9 +147,9 @@ def filesystem_resource_download(package_type, id, resource_id, filename=None):
 
 s3_resource.add_url_rule(u'/<resource_id>/download',
                          view_func=resource_download)
-s3_resource.add_url_rule(u'/<resource_id>/download2',
-                         view_func=resource_download)
 s3_resource.add_url_rule(u'/<resource_id>/download/<filename>',
+                         view_func=resource_download)
+s3_resource.add_url_rule(u'/<resource_id>/download2/<filename>',
                          view_func=resource_download)
 s3_resource.add_url_rule(u'/<resource_id>/fs_download/<filename>',
                          view_func=filesystem_resource_download)
