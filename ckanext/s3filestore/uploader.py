@@ -367,12 +367,8 @@ class S3ResourceUploader(BaseS3Uploader):
         my_storage_path/resources/165900ba-3c60-43c5-9e9c-9f8acd0aa93f/data.csv
         '''
         directory = self.get_directory(id, self.storage_path)
-        log.info(f'directory > {directory}')
         filepath = os.path.join(directory, filename)
-        log.info(f'abspath {os.path.abspath(filepath)}')
-        log.info(f'realpath {os.path.realpath(filepath)}')
-        log.info(f'relpath {os.path.relpath(filepath)}')
-        return filepath
+        return os.path.relpath(filepath)
 
     def upload(self, id, max_size=10):
         '''Upload the file to S3.'''
