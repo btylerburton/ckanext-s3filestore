@@ -3,9 +3,8 @@ import os
 import logging
 import mimetypes
 
-import flask
-
 from botocore.exceptions import ClientError
+from flask import Blueprint
 
 from ckantoolkit import config as ckan_config
 from ckantoolkit import _, request, c, g
@@ -19,7 +18,6 @@ import ckan.model as model
 
 log = logging.getLogger(__name__)
 
-Blueprint = flask.Blueprint
 NotFound = logic.NotFound
 NotAuthorized = logic.NotAuthorized
 get_action = logic.get_action
@@ -27,12 +25,7 @@ abort = base.abort
 redirect = toolkit.redirect_to
 
 
-s3_resource = Blueprint(
-    u's3_resource',
-    __name__,
-    url_prefix=u'/dataset/<id>/resource',
-    url_defaults={u'package_type': u'dataset'}
-)
+s3_resource = Blueprint('s3_resource',__name__)
 
 
 def resource_download(package_type, id, resource_id, filename=None):
@@ -149,11 +142,9 @@ s3_resource.add_url_rule(u'/<resource_id>/download',
                          view_func=resource_download)
 s3_resource.add_url_rule(u'/<resource_id>/download/<filename>',
                          view_func=resource_download)
-s3_resource.add_url_rule(u'/<resource_id>/download2/<filename>',
-                         view_func=resource_download)
 s3_resource.add_url_rule(u'/<resource_id>/fs_download/<filename>',
                          view_func=filesystem_resource_download)
 
 
 def get_blueprints():
-    return [s3_resource]
+    return s3_resource

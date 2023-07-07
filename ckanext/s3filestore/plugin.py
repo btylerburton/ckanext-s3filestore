@@ -6,11 +6,14 @@ import ckanext.s3filestore.uploader
 from ckanext.s3filestore.views import resource, uploads
 from ckanext.s3filestore.click_commands import upload_resources, upload_assets
 
+import logging
+log = logging.getLogger(__name__)
+
 
 class S3FileStorePlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IConfigurable)
-    plugins.implements(plugins.IUploader, inherit=True)
+    plugins.implements(plugins.IUploader)
     plugins.implements(plugins.IBlueprint)
     plugins.implements(plugins.IClick)
 
@@ -66,6 +69,7 @@ class S3FileStorePlugin(plugins.SingletonPlugin):
     def get_blueprint(self):
         blueprints = resource.get_blueprints() +\
                      uploads.get_blueprints()
+        log.info(f'blueprints >> {blueprints}')
         return blueprints
 
     # IClick

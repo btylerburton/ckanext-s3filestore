@@ -2,8 +2,8 @@
 import os
 import logging
 
-import flask
 from botocore.exceptions import ClientError
+from flask import Blueprint
 
 import ckantoolkit as toolkit
 from ckantoolkit import _
@@ -12,15 +12,11 @@ import ckan.lib.base as base
 from ckanext.s3filestore.uploader import S3Uploader, BaseS3Uploader
 
 
-Blueprint = flask.Blueprint
 redirect = toolkit.redirect_to
 abort = base.abort
 log = logging.getLogger(__name__)
 
-s3_uploads = Blueprint(
-    u's3_uploads',
-    __name__
-)
+s3_uploads = Blueprint('s3_uploads',__name__)
 
 
 def uploaded_file_redirect(upload_to, filename):
@@ -46,4 +42,4 @@ s3_uploads.add_url_rule(u'/uploads/<upload_to>/<filename>',
 
 
 def get_blueprints():
-    return [s3_uploads]
+    return s3_uploads
