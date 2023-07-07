@@ -369,6 +369,9 @@ class S3ResourceUploader(BaseS3Uploader):
         directory = self.get_directory(id, self.storage_path)
         log.info(f'directory > {directory}')
         filepath = os.path.join(directory, filename)
+        log.info(f'abspath {os.path.abspath(filepath)}')
+        log.info(f'realpath {os.path.realpath(filepath)}')
+        log.info(f'relpath {os.path.relpath(filepath)}')
         return filepath
 
     def upload(self, id, max_size=10):
